@@ -1,26 +1,82 @@
+// 定义 Checkout 类，用于实现结账时的学生折扣功能
 public class Checkout {
-    public static double applyStudentDiscount(double total, boolean isStudent){
-        if(isStudent){
+
+    /**
+     * 根据顾客是否为学生计算最终付款金额。
+     *
+     * @param total     原始购物总金额
+     * @param isStudent 是否为学生：true 表示是学生，false 表示不是学生
+     * @return 应用学生折扣后的最终付款金额
+     */
+    public static double applyStudentDiscount(double total, boolean isStudent) {
+
+        // 如果顾客是学生，则享受 10% 的折扣，即支付原价的 90%
+        if (isStudent) {
             return total * 0.90;
         }
+
+        // 如果顾客不是学生，则不享受折扣，返回原始金额
         return total;
     }
 
+    /**
+     * 程序入口，用于测试学生顾客和非学生顾客的结账结果。
+     *
+     * @param args 命令行参数，本程序中未使用
+     */
     public static void main(String[] args) {
+
+        // 设置原始购物总金额为 100 英镑
         double originalTotal = 100.0;
-        System.out.printf("Original purchase total: £%.2f%n",originalTotal);
+
+        // 输出原始购物总金额，并保留两位小数
+        System.out.printf(
+                "Original purchase total: £%.2f%n",
+                originalTotal
+        );
+
+        // 输出学生可以享受的折扣比例
         System.out.println("Student discount: 10%");
 
-        //学生测试
-        double studentPrice = applyStudentDiscount(originalTotal,true);
-        System.out.println("----[Customer is student]----");
-        System.out.printf("Discount amount: £%.2f%n",originalTotal - studentPrice);
-        System.out.printf("Final purchase total: £%.2f%n%n",studentPrice);
+        // ==================== 学生顾客测试 ====================
 
-        //非学生测试
-        double normalPrice = applyStudentDiscount(originalTotal,false);
+        // 调用学生折扣方法
+        // 第二个参数为 true，表示该顾客是学生
+        double studentPrice = applyStudentDiscount(originalTotal, true);
+
+        // 输出学生顾客测试标题
+        System.out.println("----[Customer is student]----");
+
+        // 计算并输出学生顾客获得的折扣金额
+        // 折扣金额 = 原始金额 - 折后金额
+        System.out.printf(
+                "Discount amount: £%.2f%n",
+                originalTotal - studentPrice
+        );
+
+        // 输出学生顾客折扣后的最终付款金额
+        // %n%n 表示输出结果后换两行
+        System.out.printf(
+                "Final purchase total: £%.2f%n%n",
+                studentPrice
+        );
+
+        // ==================== 非学生顾客测试 ====================
+
+        // 调用学生折扣方法
+        // 第二个参数为 false，表示该顾客不是学生
+        double normalPrice = applyStudentDiscount(originalTotal, false);
+
+        // 输出非学生顾客测试标题
         System.out.println("----[Customer is NOT student]----");
+
+        // 非学生顾客不享受折扣，因此折扣金额为 0
         System.out.println("Discount amount: £0.00");
-        System.out.printf("Final purchase total: £%.2f%n",normalPrice);
+
+        // 输出非学生顾客的最终付款金额，即原始购物金额
+        System.out.printf(
+                "Final purchase total: £%.2f%n",
+                normalPrice
+        );
     }
 }
